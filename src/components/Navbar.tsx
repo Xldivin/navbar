@@ -9,16 +9,29 @@ import { CiDark } from "react-icons/ci";
 import { useTheme } from "next-themes";
 import { customHooks } from "@/utils/customHooks";
 
+import { CiMenuBurger } from "react-icons/ci";
+import { Icon } from "@iconify/react";
 
 type Texts = {
-    text1: string;
-    text2: string;
-    text3: string;
-    text4: string;
-}
+  text1: string;
+  text2: string;
+  text3: string;
+  text4: string;
+};
 
-const Navbar = (props:Texts) => {
-  const {text1 , text2, text3, text4 } = props
+const Navbar = (props: Texts) => {
+  const { text1, text2, text3, text4 } = props;
+  const [selectedVersion, setSelectedVersion] = useState("1.5.1");
+  const [selectedVersion2, setSelectedVersion2] = useState("2.0.0");
+  const [selectedVersion3, setSelectedVersion3] = useState("2.0.0-pre");
+  const [dropdownTransport, setdropdownTransport] = useState(false);
+  const [dropdownMultiplayer, setdropdownMultiplayer] = useState(false);
+  const [dropdownGameObject, setdropdownGameObject] = useState(false);
+  const [dropdownGithub, setdropdownGithub] = useState(false);
+  const [dropdownCommunity, setdropdownCommunity] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
+
+  const { theme, setTheme } = useTheme();
 
   const {
     dropdown1,
@@ -33,193 +46,524 @@ const Navbar = (props:Texts) => {
     setDropdown5,
   } = customHooks();
 
-  const {theme, setTheme} = useTheme();
+  const handleVersionClick2 = (version: string) => {
+    setSelectedVersion2(version);
+    setDropdown2(false);
+  };
+  const openMenu = () => {
+    setMobileMenu(true);
+  };
+  const closeMenu = () => {
+    setMobileMenu(false);
+  };
+  const handleVersionClick3 = (version: string) => {
+    setSelectedVersion3(version);
+    setDropdown3(false);
+  };
+
+  const handleDropdownClick = (dropdownName: string) => {
+    switch (dropdownName) {
+      case "dropdownTransport":
+        setdropdownTransport(!dropdownTransport);
+        break;
+      case "dropdownMultiplayer":
+        setdropdownMultiplayer(!dropdownMultiplayer);
+        break;
+      case "dropdownGameObject":
+        setdropdownGameObject(!dropdownGameObject);
+        break;
+      case "dropdownGithub":
+        setdropdownGithub(!dropdownGithub);
+        break;
+      case "dropdownCommunity":
+        setdropdownCommunity(!dropdownCommunity);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleVersionClick = (version: string) => {
+    setSelectedVersion(version);
+    setDropdown1(false);
+  };
   return (
     <nav
-      className="flex-no-wrap relative flex w-full items-center justify-between bg-[#000] py-2 h-[60px] lg:justify-start lg:py-4"
+      className="relative w-100 items-center flex justify-between bg-black px-0 md:px-4 py-4"
       data-te-navbar-ref
     >
       <div className="flex space-x-[7rem]">
         <div className="flex">
-          <div className="ml-[20px] flex border-r-2">
+          <div className="flex">
+            <CiMenuBurger
+              className=" flex lg:hidden mr-2 mt-[2px] w-[30px] h-[25px] text-white"
+              onClick={() => openMenu()}
+            />
             <a href="#" className="flex gap-[10px]">
               <Image src={Logo} alt="logo" />
-              <p className="text-[#fff] mt-[3px]">{text1}</p>
+              <p className="text-[#fff] text-md font-bold mt-[7px] hover:text-blue-500 cursor-pointer">
+                {text1}
+              </p>
             </a>
-
-            <p className="text-[#fff] ml-[23px] mt-[3px]">
-             {text2}
-            </p>
-            <div
-              className="text-[#fff] flex mt-[3px] ml-[20px] cursor-pointer relative"
-              onMouseOver={() => setDropdown1(true)}
-              onMouseLeave={() => setDropdown1(false)}
-            >
-              <p>1.5.1</p>
-              <IoMdArrowDropdown className="mt-[-1px] w-[30px] h-[30px]" />
-              <ul
-                className={`absolute right-[-5rem] bg-[#fff] dark:bg-[#000] w-40 py-2 mt-2 rounded-lg shadow-xl top-[2rem] ${
-                  dropdown1 ? "block" : "hidden"
-                }`}
+            <div className="flex border-r-[1px] hidden lg:flex">
+              <p className="text-[#fff] ml-[23px] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
+                {text2}
+              </p>
+              <div
+                className="text-[#fff] flex text-md pt-[7px] pl-[20px] cursor-pointer relative"
+                onMouseOver={() => setDropdown1(true)}
+                onMouseLeave={() => setDropdown1(false)}
               >
-                <li className="flex w-full dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-                  1.5.1
-                </li>
-                <li className="flex w-full dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-                  1.4.0
-                </li>
-                <li className="flex w-full dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-                  1.3.0
-                </li>
-                <li className="flex w-full dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-                  1.1.0
-                </li>
-                <li className="flex w-full dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-                  1.0.0
-                </li>
-                <li className="flex w-full dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-                  0.1.0
-                </li>
-              </ul>
+                <p>{selectedVersion}</p>
+                <IoMdArrowDropdown className="mt-[-1px] w-[30px] h-[30px]" />
+                <ul
+                  className={`absolute right-[-5rem] w-40 py-2 mt-2 rounded-lg shadow-xl top-[2rem] ${
+                    dropdown1 ? "block" : "hidden"
+                  }`}
+                >
+                  <li
+                    className="flex w-full  dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500 cursor-pointer"
+                    onClick={() => handleVersionClick("1.5.1")}
+                  >
+                    1.5.1
+                  </li>
+                  <li
+                    className="flex w-full dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500 cursor-pointer"
+                    onClick={() => handleVersionClick("1.4.0")}
+                  >
+                    1.4.0
+                  </li>
+                  <li
+                    className="flex w-full dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500 cursor-pointer"
+                    onClick={() => handleVersionClick("1.3.0")}
+                  >
+                    1.3.0
+                  </li>
+                  <li
+                    className="flex w-full dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500 cursor-pointer"
+                    onClick={() => handleVersionClick("1.1.0")}
+                  >
+                    1.1.0
+                  </li>
+                  <li
+                    className="flex w-full dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500 cursor-pointer"
+                    onClick={() => handleVersionClick("1.0.0")}
+                  >
+                    1.0.0
+                  </li>
+                  <li
+                    className="flex w-full  dark:text-[#fff] items-center px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500 cursor-pointer"
+                    onClick={() => handleVersionClick("0.1.0")}
+                  >
+                    0.1.0
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-          <div className="flex border-r-2">
-            <p className="text-[#fff] ml-[23px] mt-[3px]">{text3}</p>
+          <div className="flex border-r-[1px] hidden lg:flex">
+            <p className="text-[#fff] pl-[23px] text-md pt-[7px] hover:text-blue-500 cursor-pointer">
+              {text3}
+            </p>
             <div
-              className="text-[#fff] flex mt-[3px] ml-[20px] relative"
+              className="text-[#fff] flex text-md pt-[7px] pl-[20px] relative cursor-pointer"
               onMouseOver={() => setDropdown2(true)}
               onMouseLeave={() => setDropdown2(false)}
             >
-              <p>2.0.0</p>
+              <p className="hover:text-blue-500">{selectedVersion2}</p>
               <IoMdArrowDropdown className="mt-[-1px] w-[30px] h-[30px]" />
               <ul
                 className={`absolute right-[-5rem] bg-[#fff] dark:bg-[#000] w-40 py-2 mt-2 rounded-lg shadow-xl top-[2rem] ${
                   dropdown2 ? "block" : "hidden"
                 }`}
               >
-                <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
+                <li
+                  className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] dark:hover:bg-[#444950] hover:text-blue-500"
+                  onClick={() => handleVersionClick2("2.0.0")}
+                >
                   2.0.0
                 </li>
-                <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
+                <li
+                  className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] dark:hover:bg-[#444950] hover:text-blue-500"
+                  onClick={() => handleVersionClick2("1.0.0")}
+                >
                   1.0.0
                 </li>
-                <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
+                <li
+                  className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] dark:hover:bg-[#444950] hover:text-blue-500"
+                  onClick={() => handleVersionClick2("0.8.0")}
+                >
                   0.8.0
                 </li>
               </ul>
             </div>
           </div>
-          <div className="flex">
-            <p className="text-[#fff] ml-[23px] mt-[3px]">{text4}</p>
+          <div className="flex border-r-[1px] hidden lg:flex">
+            <p className="text-[#fff] ml-[23px] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
+              {text4}
+            </p>
             <div
-              className="text-[#fff] flex mt-[3px] ml-[20px] relative"
+              className="text-[#fff] flex text-md pt-[7px] pl-[20px] relative cursor-pointer"
               onMouseOver={() => setDropdown3(true)}
               onMouseLeave={() => setDropdown3(false)}
             >
-              <p>2.0.0-pre</p>
+              <p className="hover:text-blue-500">{selectedVersion3}</p>
               <IoMdArrowDropdown className="mt-[-1px] w-[30px] h-[30px]" />
               <ul
                 className={`absolute right-[-5rem] bg-[#fff] dark:bg-[#000] w-40 py-2 mt-2 rounded-lg shadow-xl top-[2rem] ${
                   dropdown3 ? "block" : "hidden"
                 }`}
               >
-                <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
+                <li
+                  className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500"
+                  onClick={() => handleVersionClick3("2.0.0-pre")}
+                >
                   2.0.0-pre
                 </li>
-                <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
+                <li
+                  className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500"
+                  onClick={() => handleVersionClick3("1.1.0")}
+                >
                   1.1.0
                 </li>
-                <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
+                <li
+                  className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500"
+                  onClick={() => handleVersionClick3("1.0.0")}
+                >
                   1.0.0
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        <div className="flex text-[#fff]">
+        <div className="flex text-[#fff] absolute right-4">
           <div
-            className="relative"
+            className="relative cursor-pointer hidden lg:flex"
             onMouseOver={() => setDropdown4(true)}
             onMouseLeave={() => setDropdown4(false)}
           >
-            <FaGithub className="w-[25px] h-[25px] mt-[3px]" />
+            <FaGithub className="w-[25px] h-[25px] text-md mt-[7px]" />
             <ul
               className={`absolute right-0 w-[20rem] bg-[#fff] dark:bg-[#000] py-2 mt-2 rounded-lg shadow-xl top-[2rem] ${
                 dropdown4 ? "block" : "hidden"
               }`}
             >
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
                 Release Notes
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
                 Docs Repo
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Netcode for GameObjects Repo
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
+                Netcode for GameObjects Repo
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Multiplayer Community Contributions              
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
+                Multiplayer Community Contributions
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Boss Room Repo
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
+                Boss Room Repo
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Bitesize Samples Repo
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
+                Bitesize Samples Repo
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Contribution Guide
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
+                Contribution Guide
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Markdown Template
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
+                Markdown Template
               </li>
             </ul>
           </div>
           <div
-            className="relative"
+            className="relative cursor-pointer hidden lg:flex"
             onMouseOver={() => setDropdown5(true)}
             onMouseLeave={() => setDropdown5(false)}
           >
-            <MdMessage className="w-[25px] h-[25px] mt-[3px] ml-[20px]" />
+            <MdMessage className="w-[25px] h-[25px] text-md mt-[7px] ml-[10px]" />
             <ul
               className={`absolute right-[-3rem] bg-[#fff] dark:bg-[#000] w-[15rem] py-2 mt-2 rounded-lg shadow-xl top-[2rem] ${
                 dropdown5 ? "block" : "hidden"
               }`}
             >
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Product Roadmap
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500">
+                Product Roadmap
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Discord
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500">
+                Discord
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Unity Multiplayer Forum
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500">
+                Unity Multiplayer Forum
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Netcode for GameObjects Forum
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500">
+                Netcode for GameObjects Forum
               </li>
-              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000]">
-              Unity Transport Forum
+              <li className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500">
+                Unity Transport Forum
               </li>
             </ul>
           </div>
           <div>
-            {
-              theme === "light" ? <CiDark className="w-[25px] h-[25px] mt-[3px] ml-[20px] mr-[10px]" onClick={() => setTheme('dark')} /> : <CiDark className="w-[25px] h-[25px] mt-[3px] ml-[20px] mr-[10px]" onClick={() => setTheme('light')}/>  
-            }
+            {theme === "light" ? (
+              <Icon
+                icon="bi:sun"
+                className="w-[25px] h-[25px] mt-[3px] ml-[20px] mr-[10px]"
+                onClick={() => setTheme("dark")}
+              />
+            ) : (
+              <CiDark
+                className="w-[25px] h-[25px] mt-[3px] ml-[20px] mr-[10px]"
+                onClick={() => setTheme("light")}
+              />
+            )}
           </div>
-          <div className="relative hidden md:block">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <BsSearch className="text-[#000]" />
+          <div className="relative">
+            <div className="inset-y-0 flex items-center pl-3 pointer-events-none">
+              <BsSearch className="text-white sm:text-black top-[-6px] mt-[14px] sm:mt-4 relative sm:absolute" />
             </div>
             <input
               type="text"
               id="search-navbar"
-              className="block w-[10rem] dark:bg-[#444950] dark:text-[#fff] p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-[#fff]"
+              className="block w-[10rem] dark:bg-[#444950] dark:text-[#fff]  hidden md:flex h-2 p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-[#fff]"
               placeholder="Search"
             />
           </div>
         </div>
       </div>
+
+      {/* Mobile */}
+
+      {mobileMenu && (
+        <div className="flex lg:hidden h-screen w-screen absolute left-0 top-0">
+          <div className="h-screen w-4/5 bg-black relative">
+            <div className="flex justify-between p-4">
+              <a href="#" className="flex">
+                <Image src={Logo} alt="logo" />
+                <p className="text-[#fff] text-md font-bold mt-[15px] hover:text-blue-500 cursor-pointer overflow-hidden whitespace-nowrap text-overflow-ellipsis">
+                  {text1}
+                </p>
+              </a>
+              <Icon
+                icon="system-uicons:cross"
+                color="white"
+                width="48"
+                onClick={() => closeMenu()}
+              />
+            </div>
+            <div className="px-4">
+              <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
+                {text2}
+              </p>
+              <div className="block border-b border-white">
+                <div
+                  className=" flex justify-between"
+                  onClick={() => handleDropdownClick("dropdownGameObject")}
+                >
+                  <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
+                    Version
+                  </p>
+                  <Icon
+                    icon="ri:arrow-drop-down-line"
+                    color="white"
+                    width="48"
+                    className={`transition-transform duration-200 transform ${
+                      dropdownGameObject ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+                {dropdownGameObject && (
+                  <ul>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("2.0.0-pre")}
+                    >
+                      2.0.0-pre
+                    </li>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("1.1.0")}
+                    >
+                      1.1.0
+                    </li>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("1.0.0")}
+                    >
+                      1.0.0
+                    </li>
+                  </ul>
+                )}
+              </div>
+              <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
+                Transport
+              </p>
+              <div className="block border-b border-white">
+                <div
+                  className=" flex justify-between"
+                  onClick={() => handleDropdownClick("dropdownTransport")}
+                >
+                  <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
+                    Version
+                  </p>
+                  <Icon
+                    icon="ri:arrow-drop-down-line"
+                    color="white"
+                    width="48"
+                    className={`transition-transform duration-200 transform ${
+                      dropdownTransport ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+                {dropdownTransport && (
+                  <ul>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("2.0.0-pre")}
+                    >
+                      2.0.0-pre
+                    </li>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("1.1.0")}
+                    >
+                      1.1.0
+                    </li>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("1.0.0")}
+                    >
+                      1.0.0
+                    </li>
+                  </ul>
+                )}
+              </div>
+              <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
+                Multiplayer
+              </p>
+              <div className="block border-b border-white">
+                <div
+                  className=" flex justify-between"
+                  onClick={() => handleDropdownClick("dropdownMultiplayer")}
+                >
+                  <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
+                    Version
+                  </p>
+                  <Icon
+                    icon="ri:arrow-drop-down-line"
+                    color="white"
+                    width="48"
+                    className={`transition-transform duration-200 transform ${
+                      dropdownMultiplayer ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+                {dropdownMultiplayer && (
+                  <ul>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("2.0.0-pre")}
+                    >
+                      2.0.0-pre
+                    </li>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("1.1.0")}
+                    >
+                      1.1.0
+                    </li>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("1.0.0")}
+                    >
+                      1.0.0
+                    </li>
+                  </ul>
+                )}
+              </div>
+              <div className="block">
+                <div
+                  className=" flex"
+                  onClick={() => handleDropdownClick("dropdownGithub")}
+                >
+                  <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
+                    Github
+                  </p>
+                  <Icon
+                    icon="ri:arrow-drop-down-line"
+                    color="white"
+                    width="48"
+                    className={`mt-[-5px] transition-transform duration-200 transform ${
+                      dropdownGithub ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+                {dropdownGithub && (
+                  <ul>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("2.0.0-pre")}
+                    >
+                      2.0.0-pre
+                    </li>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("1.1.0")}
+                    >
+                      1.1.0
+                    </li>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("1.0.0")}
+                    >
+                      1.0.0
+                    </li>
+                  </ul>
+                )}
+              </div>
+              <div className="block">
+                <div
+                  className=" flex"
+                  onClick={() => handleDropdownClick("dropdownCommunity")}
+                >
+                  <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
+                    Community
+                  </p>
+                  <Icon
+                    icon="ri:arrow-drop-down-line"
+                    color="white"
+                    width="48"
+                    className={`mt-[-5px] transition-transform duration-200 transform ${
+                      dropdownCommunity ? "rotate-180" : ""
+                    }`}
+                  />
+                </div>
+                {dropdownCommunity && (
+                  <ul>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("2.0.0-pre")}
+                    >
+                      2.0.0-pre
+                    </li>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("1.1.0")}
+                    >
+                      1.1.0
+                    </li>
+                    <li
+                      className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500"
+                      onClick={() => handleVersionClick3("1.0.0")}
+                    >
+                      1.0.0
+                    </li>
+                  </ul>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="h-screen w-1/5 bg-black brightness-80 opacity-80" />
+        </div>
+      )}
     </nav>
   );
 };
