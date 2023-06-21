@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 
 export const customHooks = () => {
     const [dropdown1, setDropdown1] = useState(false);
@@ -22,15 +22,18 @@ export const customHooks = () => {
       setSelectedVersion2(version);
       setDropdown2(false);
     };
+    useEffect(() => {
+      console.log('mobileMenu:', mobileMenu);
+    }, [mobileMenu]);
+  
     const openMenu = () => {
-      console.log(mobileMenu);
-      console.log("we are in openMenu")
+      console.log("we are in openMenu");
       setMobileMenu(true);
     };
+  
     const closeMenu = () => {
-      console.log(mobileMenu);
-      console.log("we are in closeMenu")
-      setMobileMenu(true);
+      console.log("we are in closeMenu");
+      setMobileMenu(!mobileMenu);
     };
     const handleVersionClick3 = (version: string) => {
       setSelectedVersion3(version);

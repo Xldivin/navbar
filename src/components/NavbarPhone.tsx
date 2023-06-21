@@ -3,8 +3,17 @@ import React from "react";
 import Image from "next/image";
 import Logo from "../../public/logo.png";
 import { customHooks } from "@/utils/customHooks";
+import { useTheme } from "next-themes";
 
-const NavbarPhone = (props: ITexts & { versions1: string[] } & { versions2: string[] } & {versions3: string[];} & { links: string[] } & { resources: string[] }) => {
+const NavbarPhone: React.FC<ITexts & {
+  versions1: string[];
+  versions2: string[];
+  versions3: string[];
+  links: string[];
+  resources: string[];
+  mobileMenu: boolean;
+  closeMenu: () => void;
+}> = (props) => {
   const {
     text1,
     text2,
@@ -14,46 +23,22 @@ const NavbarPhone = (props: ITexts & { versions1: string[] } & { versions2: stri
     versions3,
     links,
     resources,
+    mobileMenu,
+    closeMenu,
   } = props;
   const {
-    dropdown1,
-    dropdown2,
-    dropdown3,
-    dropdown4,
-    dropdown5,
     versionTitle,
     githubTitle,
     communityTitle,
-    selectedVersion,
-    selectedVersion2,
-    selectedVersion3,
     dropdownTransport,
     dropdownGameObject,
     dropdownMultiplayer,
     dropdownGithub,
     dropdownCommunity,
-    mobileMenu,
-    handleVersionClick2,
-    openMenu,
-    closeMenu,
-    handleVersionClick3,
     handleDropdownClick,
     handleVersionClick,
-    setdropdownGithub,
-    setMobileMenu,
-    setdropdownCommunity,
-    setdropdownGameObject,
-    setdropdownMultiplayer,
-    setDropdown1,
-    setdropdownTransport,
-    setSelectedVersion,
-    setSelectedVersion2,
-    setSelectedVersion3,
-    setDropdown2,
-    setDropdown3,
-    setDropdown4,
-    setDropdown5,
   } = customHooks();
+  const { theme, setTheme } = useTheme();
   return (
     <div className="flex lg:hidden h-screen w-screen absolute left-0 top-0">
       <div className="h-screen w-4/5 bg-black relative">
@@ -64,6 +49,21 @@ const NavbarPhone = (props: ITexts & { versions1: string[] } & { versions2: stri
               {text1}
             </p>
           </a>
+          <div className="flex">
+            {theme === "light" ? (
+              <Icon
+                icon="bi:sun color='white'"
+                className="w-[25px] h-[25px] mt-[15px] ml-[20px] mr-[10px]"
+                onClick={() => setTheme("dark")}
+              />
+            ) : (
+              <Icon
+                icon="fa6-regular:moon"
+                className="w-[25px] h-[25px] mt-[13px] ml-[20px] mr-[10px]"
+                onClick={() => setTheme("light")}
+              />
+            )}
+          </div>
           <Icon
             icon="system-uicons:cross"
             color="white"
