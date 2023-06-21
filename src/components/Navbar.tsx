@@ -16,8 +16,11 @@ type Texts = {
     text4: string;
 };
 
-const Navbar = (props:Texts) => {
-  const { text1, text2, text3, text4 } = props;
+const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] } & { versions3: string[] } & { links: string[] } & { resources: string[] })  => {
+  const versionTitle='version';
+  const githubTitle='GitHub';
+  const communityTitle='Community';
+  const { text1, text2, text3, text4, versions1, versions2, versions3, links, resources } = props;
   const [selectedVersion, setSelectedVersion] = useState("1.5.1");
   const [selectedVersion2, setSelectedVersion2] = useState("2.0.0");
   const [selectedVersion3, setSelectedVersion3] = useState("2.0.0-pre");
@@ -104,42 +107,15 @@ const Navbar = (props:Texts) => {
           dropdown1 ? "block" : "hidden"
         }`}
       >
+{versions1.map((version) => (
+
         <li
           className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500 cursor-pointer"
-          onClick={() => handleVersionClick("1.5.1")}
+          onClick={() => handleVersionClick(version)}
         >
-          1.5.1
+           {version}
         </li>
-        <li
-          className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500 cursor-pointer"
-          onClick={() => handleVersionClick("1.4.0")}
-        >
-          1.4.0
-        </li>
-        <li
-          className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500 cursor-pointer"
-          onClick={() => handleVersionClick("1.3.0")}
-        >
-          1.3.0
-        </li>
-        <li
-          className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500 cursor-pointer"
-          onClick={() => handleVersionClick("1.1.0")}
-        >
-          1.1.0
-        </li>
-        <li
-          className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500 cursor-pointer"
-          onClick={() => handleVersionClick("1.0.0")}
-        >
-          1.0.0
-        </li>
-        <li
-          className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500 cursor-pointer"
-          onClick={() => handleVersionClick("0.1.0")}
-        >
-          0.1.0
-        </li>
+        ))}
                 </ul>
             </div>
           </div>
@@ -158,15 +134,10 @@ const Navbar = (props:Texts) => {
                   dropdown2 ? "block" : "hidden"
                 }`}
               >
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500"  onClick={() => handleVersionClick2("2.0.0")}>
-                  2.0.0
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500" onClick={() => handleVersionClick2("1.0.0")}>
-                  1.0.0
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500" onClick={() => handleVersionClick2("0.8.0")}>
-                  0.8.0
-                </li>
+                {versions2.map((version) => (
+                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500"  onClick={() => handleVersionClick(version)}>
+                 {version}
+                </li> ))}
               </ul>
             </div>
           </div>
@@ -184,15 +155,9 @@ const Navbar = (props:Texts) => {
                   dropdown3 ? "block" : "hidden"
                 }`}
               >
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500" onClick={() => handleVersionClick3("2.0.0-pre")}>
-                  2.0.0-pre
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500" onClick={() => handleVersionClick3("1.1.0")}>
-                  1.1.0
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500" onClick={() => handleVersionClick3("1.0.0")}>
-                  1.0.0
-                </li>
+                {versions3.map((version) => (<li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500" onClick={() => handleVersionClick(version)}>
+                  {version}
+                </li>))}
               </ul>
             </div>
           </div>
@@ -209,30 +174,9 @@ const Navbar = (props:Texts) => {
                 dropdown4 ? "block" : "hidden"
               }`}
             >
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-                Release Notes
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-                Docs Repo
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Netcode for GameObjects Repo
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Multiplayer Community Contributions              
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Boss Room Repo
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Bitesize Samples Repo
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Contribution Guide
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Markdown Template
-              </li>
+             {links.map((link) => ( <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
+                {link}
+              </li>))}
             </ul>
           </div>
           <div
@@ -246,21 +190,9 @@ const Navbar = (props:Texts) => {
                 dropdown5 ? "block" : "hidden"
               }`}
             >
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Product Roadmap
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Discord
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Unity Multiplayer Forum
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Netcode for GameObjects Forum
-              </li>
-              <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
-              Unity Transport Forum
-              </li>
+              {resources.map((resource) => (<li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
+              {resource}
+              </li>))}
             </ul>
           </div>
           <CiDark className="w-[25px] h-[25px] text-md mt-[7px] ml-[10px] hidden lg:flex" />
@@ -304,72 +236,61 @@ const Navbar = (props:Texts) => {
                 }`} />
         </div>
         {dropdownGameObject && ( <ul>
-        <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("2.0.0-pre")}>
-                  2.0.0-pre
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("1.1.0")}>
-                  1.1.0
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("1.0.0")}>
-                  1.0.0
-                </li>
+          {versions1.map((version) => (
+
+<li
+  className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white cursor-pointer"
+  onClick={() => handleVersionClick(version)}
+>
+   {version}
+</li>))}
         </ul>
         )}
         </div>
         <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
-            Transport
+            {text2}
         </p>
         <div className="block border-b border-white">
         <div className=" flex justify-between" onClick={() => handleDropdownClick("dropdownTransport")}>
         <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
-            Version
+           {versionTitle}
         </p>
         <Icon icon="ri:arrow-drop-down-line" color="white" width="48" className={`transition-transform duration-200 transform ${
                   dropdownTransport ? "rotate-180" : ""
                 }`} />
         </div>
         {dropdownTransport && ( <ul>
-        <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("2.0.0-pre")}>
-                  2.0.0-pre
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("1.1.0")}>
-                  1.1.0
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("1.0.0")}>
-                  1.0.0
-                </li>
+          {versions2.map((version) => (
+                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(version)}>
+                 {version}
+                </li> ))}
         </ul>
         )}
         </div>
         <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
-           Multiplayer
+           {text3}
         </p>
         <div className="block border-b border-white">
         <div className=" flex justify-between" onClick={() => handleDropdownClick("dropdownMultiplayer")}>
         <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
-            Version
+            {versionTitle}
         </p>
         <Icon icon="ri:arrow-drop-down-line" color="white" width="48" className={`transition-transform duration-200 transform ${
                   dropdownMultiplayer ? "rotate-180" : ""
                 }`} />
         </div>
         {dropdownMultiplayer && ( <ul>
-        <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("2.0.0-pre")}>
-                  2.0.0-pre
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("1.1.0")}>
-                  1.1.0
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("1.0.0")}>
-                  1.0.0
-                </li>
+          {versions3.map((version) => (
+                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(version)}>
+                 {version}
+                </li> ))}
         </ul>
         )}
         </div>
         <div className="block">
         <div className=" flex" onClick={() => handleDropdownClick("dropdownGithub")}>
         <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
-            Github
+           {githubTitle}
         </p>
         <Icon icon="ri:arrow-drop-down-line" color="white" width="48" className={`mt-[-5px] transition-transform duration-200 transform ${
                   dropdownGithub ? "rotate-180" : ""
@@ -377,21 +298,16 @@ const Navbar = (props:Texts) => {
         </div>
         {dropdownGithub && (
         <ul>
-        <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("2.0.0-pre")}>
-                  2.0.0-pre
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("1.1.0")}>
-                  1.1.0
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("1.0.0")}>
-                  1.0.0
-                </li>
+       {links.map((link) => (
+                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(link)}>
+                 {link}
+                </li> ))}
         </ul>)}
         </div>
         <div className="block">
         <div className=" flex" onClick={() => handleDropdownClick("dropdownCommunity")}>
         <p className="text-[#fff] text-md mt-[7px] hover:text-blue-500 cursor-pointer">
-            Community
+            {communityTitle}
         </p>
         <Icon icon="ri:arrow-drop-down-line" color="white" width="48" className={`mt-[-5px] transition-transform duration-200 transform ${
                   dropdownCommunity ? "rotate-180" : ""
@@ -399,20 +315,15 @@ const Navbar = (props:Texts) => {
         </div>
         {dropdownCommunity && (
         <ul>
-        <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("2.0.0-pre")}>
-                  2.0.0-pre
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("1.1.0")}>
-                  1.1.0
-                </li>
-                <li className="flex w-full items-center px-3 py-2 text-sm text-white hover:text-blue-500" onClick={() => handleVersionClick3("1.0.0")}>
-                  1.0.0
-                </li>
+      {resources.map((resource) => (
+                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(resource)}>
+                 {resource}
+                </li> ))}
         </ul>)}
         </div>
         </div>
       </div>
-      <div className="h-screen w-1/5 bg-black brightness-80 opacity-80" />
+      <div className="h-screen w-1/5 bg-black brightness-80 opacity-80" onClick={()=>closeMenu()} />
     </div>
       )}
       
