@@ -11,7 +11,7 @@ interface HomeProps {
 export default function Home({ versions1, versions2, versions3, links, resources }: HomeProps) {
   const versions1Array = ['1.5.1', '1.4.0', '1.3.0', '1.1.0', '1.0.0', '0.1.0'];
   const versions2Array = ["2.0.0", "1.0.0", "0.8.0"];
-  const versions3Array  = ["2.0.0-pre0", "1.1.0", "1.0.0"];
+  const versions3Array  = ["2.0.0-pre", "1.1.0", "1.0.0"];
   const linksArray  = [
     "Release Notes",
     "Docs Repo",

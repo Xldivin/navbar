@@ -5,9 +5,10 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import { FaGithub } from "react-icons/fa";
 import { MdMessage } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
-import { CiDark } from "react-icons/ci";
-import {CiMenuBurger} from "react-icons/ci";
+import { AiOutlineMenu } from "react-icons/ai";
 import { Icon } from '@iconify/react';
+import { useTheme } from "next-themes";
+import { customHooks } from "@/utils/customHooks";
 
 type Texts = {
     text1: string;
@@ -17,67 +18,11 @@ type Texts = {
 };
 
 const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] } & { versions3: string[] } & { links: string[] } & { resources: string[] })  => {
-  const versionTitle='version';
-  const githubTitle='GitHub';
-  const communityTitle='Community';
   const { text1, text2, text3, text4, versions1, versions2, versions3, links, resources } = props;
-  const [selectedVersion, setSelectedVersion] = useState("1.5.1");
-  const [selectedVersion2, setSelectedVersion2] = useState("2.0.0");
-  const [selectedVersion3, setSelectedVersion3] = useState("2.0.0-pre");
-  const [dropdown1, setDropdown1] = useState(false);
-  const [dropdown2, setDropdown2] = useState(false);
-  const [dropdown3, setDropdown3] = useState(false);
-  const [dropdown4, setDropdown4] = useState(false);
-  const [dropdown5, setDropdown5] = useState(false);
-  const [dropdownTransport, setdropdownTransport] = useState(false);
-  const [dropdownMultiplayer, setdropdownMultiplayer] = useState(false);
-  const [dropdownGameObject, setdropdownGameObject] = useState(false);
-  const [dropdownGithub, setdropdownGithub] = useState(false);
-  const [dropdownCommunity, setdropdownCommunity] = useState(false);
-  const [mobileMenu, setMobileMenu] = useState(false);
-
-  
-  const handleVersionClick2 = (version: string) => {
-    setSelectedVersion2(version);
-    setDropdown2(false);
-  };
-  const openMenu = () => {
-    setMobileMenu(true);
-  };
-  const closeMenu = () => {
-    setMobileMenu(false);
-  };
-  const handleVersionClick3 = (version: string) => {
-    setSelectedVersion3(version);
-    setDropdown3(false);
-  };
-
-  const handleDropdownClick = (dropdownName: string) => {
-    switch (dropdownName) {
-      case "dropdownTransport":
-        setdropdownTransport(!dropdownTransport);
-        break;
-      case "dropdownMultiplayer":
-        setdropdownMultiplayer(!dropdownMultiplayer);
-        break;
-      case "dropdownGameObject":
-        setdropdownGameObject(!dropdownGameObject);
-        break;
-        case "dropdownGithub":
-          setdropdownGithub(!dropdownGithub);
-          break;
-          case "dropdownCommunity":
-        setdropdownCommunity(!dropdownCommunity);
-        break;
-      default:
-        break;
-    }
-  };
-
-  const handleVersionClick = (version: string) => {
-    setSelectedVersion(version);
-    setDropdown1(false);
-  };
+  const {dropdown1,dropdown2,dropdown3,dropdown4,dropdown5,versionTitle,githubTitle,communityTitle,selectedVersion,selectedVersion2,selectedVersion3,dropdownTransport,dropdownGameObject,dropdownMultiplayer,dropdownGithub,dropdownCommunity,mobileMenu,
+    handleVersionClick2,openMenu,closeMenu,handleVersionClick3,handleDropdownClick,handleVersionClick,setdropdownGithub,setMobileMenu,setdropdownCommunity,setdropdownGameObject,setdropdownMultiplayer,setDropdown1,setdropdownTransport,setSelectedVersion,setSelectedVersion2,setSelectedVersion3,setDropdown2,setDropdown3,setDropdown4,setDropdown5, 
+  } = customHooks();
+  const { theme, setTheme } = useTheme();
   return (
     <nav
       className="relative w-100 items-center flex justify-between bg-black px-0 md:px-4 py-4"
@@ -86,7 +31,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
       <div className="flex space-x-[7rem]">
         <div className="flex">
           <div className="flex">
-            <CiMenuBurger className=" flex lg:hidden mr-2 mt-[2px] w-[30px] h-[25px] text-white" onClick={()=>openMenu()}/>
+            <AiOutlineMenu className=" flex lg:hidden mr-2 mt-[2px] w-[30px] h-[25px] text-white" onClick={()=>openMenu()}/>
             <a href="#" className="flex gap-[10px]">
               <Image src={Logo} alt="logo" />
               <p className="text-[#fff] text-md font-bold mt-[7px] hover:text-blue-500 cursor-pointer">{text1}</p>
@@ -109,8 +54,8 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
       >
 {versions1.map((version) => (
 
-        <li
-          className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500 cursor-pointer"
+        <li key={version}
+          className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500"
           onClick={() => handleVersionClick(version)}
         >
            {version}
@@ -121,7 +66,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
           </div>
           </div>
           <div className="flex border-r-[1px] hidden lg:flex">
-            <p className="text-[#fff] pl-[23px] text-md pt-[7px] hover:text-blue-500 cursor-pointer">{text3}</p>
+            <p className="text-[#fff] ml-[23px] text-md mt-[7px] hover:text-blue-500 cursor-pointer">{text3}</p>
             <div
               className="text-[#fff] flex text-md pt-[7px] pl-[20px] relative cursor-pointer"
               onMouseOver={() => setDropdown2(true)}
@@ -135,7 +80,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
                 }`}
               >
                 {versions2.map((version) => (
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500"  onClick={() => handleVersionClick(version)}>
+                <li key={version} className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500"  onClick={() => handleVersionClick2(version)}>
                  {version}
                 </li> ))}
               </ul>
@@ -155,7 +100,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
                   dropdown3 ? "block" : "hidden"
                 }`}
               >
-                {versions3.map((version) => (<li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500" onClick={() => handleVersionClick(version)}>
+                {versions3.map((version) => (<li key={version} className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500" onClick={() => handleVersionClick3(version)}>
                   {version}
                 </li>))}
               </ul>
@@ -174,7 +119,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
                 dropdown4 ? "block" : "hidden"
               }`}
             >
-             {links.map((link) => ( <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
+             {links.map((link) => ( <li key={link} className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
                 {link}
               </li>))}
             </ul>
@@ -190,12 +135,23 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
                 dropdown5 ? "block" : "hidden"
               }`}
             >
-              {resources.map((resource) => (<li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-[#000] hover:text-blue-500">
+              {resources.map((resource) => (<li key={resource} className="flex w-full items-center dark:text-[#fff] px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-[#444950] text-[#000] hover:text-blue-500">
               {resource}
               </li>))}
             </ul>
           </div>
-          <CiDark className="w-[25px] h-[25px] text-md mt-[7px] ml-[10px] hidden lg:flex" />
+          <div>
+            {theme === "light" ? (
+              <Icon
+                icon="bi:sun"
+                className="w-[25px] h-[25px] mt-[3px] ml-[20px] mr-[10px]"
+                onClick={() => setTheme("dark")}
+              />
+            ) : (
+              <Icon icon="fa6-regular:moon" className="w-[25px] h-[25px] mt-[3px] ml-[20px] mr-[10px]"
+              onClick={() => setTheme("light")} />
+            )}
+          </div>
           <div className="relative">
             <div className="inset-y-0 flex items-center pl-3 pointer-events-none">
               <BsSearch className="text-white sm:text-black top-[-6px] mt-[14px] sm:mt-4 relative sm:absolute" />
@@ -203,7 +159,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
             <input
               type="text"
               id="search-navbar"
-              className="block w-[10rem] hidden md:flex h-2 p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-[#fff]"
+              className="block w-[10rem] dark:bg-[#444950] dark:text-[#fff]  hidden md:flex h-2 p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-[#fff]"
               placeholder="Search"
             />
           </div>
@@ -238,7 +194,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
         {dropdownGameObject && ( <ul>
           {versions1.map((version) => (
 
-<li
+<li key={version}
   className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white cursor-pointer"
   onClick={() => handleVersionClick(version)}
 >
@@ -261,7 +217,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
         </div>
         {dropdownTransport && ( <ul>
           {versions2.map((version) => (
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(version)}>
+                <li key={version} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(version)}>
                  {version}
                 </li> ))}
         </ul>
@@ -281,7 +237,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
         </div>
         {dropdownMultiplayer && ( <ul>
           {versions3.map((version) => (
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(version)}>
+                <li key={version} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(version)}>
                  {version}
                 </li> ))}
         </ul>
@@ -299,7 +255,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
         {dropdownGithub && (
         <ul>
        {links.map((link) => (
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(link)}>
+                <li key={link} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(link)}>
                  {link}
                 </li> ))}
         </ul>)}
@@ -316,7 +272,7 @@ const Navbar = (props: Texts & { versions1: string[] } & { versions2: string[] }
         {dropdownCommunity && (
         <ul>
       {resources.map((resource) => (
-                <li className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(resource)}>
+                <li key={resource} className="flex w-full items-center px-3 py-2 text-sm hover:bg-gray-100 text-white"  onClick={() => handleVersionClick(resource)}>
                  {resource}
                 </li> ))}
         </ul>)}
