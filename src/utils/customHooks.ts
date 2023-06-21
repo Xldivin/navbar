@@ -23,10 +23,14 @@ export const customHooks = () => {
       setDropdown2(false);
     };
     const openMenu = () => {
+      console.log(mobileMenu);
+      console.log("we are in openMenu")
       setMobileMenu(true);
     };
     const closeMenu = () => {
-      setMobileMenu(false);
+      console.log(mobileMenu);
+      console.log("we are in closeMenu")
+      setMobileMenu(true);
     };
     const handleVersionClick3 = (version: string) => {
       setSelectedVersion3(version);
