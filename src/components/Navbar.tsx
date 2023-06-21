@@ -77,12 +77,12 @@ const Navbar = (props:Texts) => {
   };
   return (
     <nav
-      className="relative w-100 items-center justify-between bg-black py-4 lg:py-4"
+      className="relative w-100 items-center flex justify-between bg-black px-0 md:px-4 py-4"
       data-te-navbar-ref
     >
       <div className="flex space-x-[7rem]">
         <div className="flex">
-          <div className="ml-[20px] flex">
+          <div className="flex">
             <CiMenuBurger className=" flex lg:hidden mr-2 mt-[2px] w-[30px] h-[25px] text-white" onClick={()=>openMenu()}/>
             <a href="#" className="flex gap-[10px]">
               <Image src={Logo} alt="logo" />
@@ -197,7 +197,7 @@ const Navbar = (props:Texts) => {
             </div>
           </div>
         </div>
-        <div className="flex text-[#fff] absolute right-7">
+        <div className="flex text-[#fff] absolute right-4">
           <div
             className="relative cursor-pointer hidden lg:flex"
             onMouseOver={() => setDropdown4(true)}
@@ -265,13 +265,13 @@ const Navbar = (props:Texts) => {
           </div>
           <CiDark className="w-[25px] h-[25px] text-md mt-[7px] ml-[10px] hidden lg:flex" />
           <div className="relative">
-            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <BsSearch className="text-white sm:text-black mt-[20px] md:mt-0 sm:mr-4" />
+            <div className="inset-y-0 flex items-center pl-3 pointer-events-none">
+              <BsSearch className="text-white sm:text-black top-[-6px] mt-[14px] sm:mt-4 relative sm:absolute" />
             </div>
             <input
               type="text"
               id="search-navbar"
-              className="block w-[10rem] hidden md:flex mt-[2px] h-2 p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-[#fff]"
+              className="block w-[10rem] hidden md:flex h-2 p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-[#fff]"
               placeholder="Search"
             />
           </div>
@@ -281,12 +281,12 @@ const Navbar = (props:Texts) => {
       {/* Mobile */}
 
       {mobileMenu &&(
-      <div className="flex lg:hidden h-screen w-screen absolute top-0">
+      <div className="flex lg:hidden h-screen w-screen absolute left-0 top-0">
       <div className="h-screen w-4/5 bg-black relative">
         <div className="flex justify-between p-4">
         <a href="#" className="flex">
           <Image src={Logo} alt="logo" />
-          <p className="text-[#fff] text-md font-bold mt-[15px] hover:text-blue-500 cursor-pointer">{text1}</p>
+          <p className="text-[#fff] text-md font-bold mt-[15px] hover:text-blue-500 cursor-pointer overflow-hidden whitespace-nowrap text-overflow-ellipsis">{text1}</p>
         </a>
         <Icon icon="system-uicons:cross" color="white" width="48" onClick={()=>closeMenu()} />
         </div>
